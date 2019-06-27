@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class UserDaoImpl implements UserDao {
-    private List<User> userList = new ArrayList<>(Arrays.asList(new User("aa", "11"), new User("notadmin", "12345")));
+    private List<User> userList = new ArrayList<>(Arrays.asList(new User("aa", "11"), new User("notadmin", "12345"),new User("admin","admin123")));
 
     @Override
     public User getUserByLogin(String login) {
