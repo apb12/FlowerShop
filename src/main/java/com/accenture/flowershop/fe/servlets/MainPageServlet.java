@@ -57,6 +57,9 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("</style>");
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Привет " + login + " вы в сессии</h1>");
+        printWriter.println("<form action='LogOutServlet'>");
+	    printWriter.println("<p align=center><button>выход</button></p>");
+	    printWriter.println("</form>");
         printWriter.println("</body>");
         printWriter.println("</html>");
     }

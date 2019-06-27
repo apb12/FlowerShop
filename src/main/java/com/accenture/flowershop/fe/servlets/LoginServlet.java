@@ -66,6 +66,7 @@ public class LoginServlet extends HttpServlet {
                 if (userService.login(login, password)) {
                     HttpSession session=req.getSession();
                     session.setAttribute("login",login);
+                    session.setMaxInactiveInterval(600);
                     resp.sendRedirect("MainPageServlet");
                 } else {
                     printWriter.println("<h1 align=center>Такого логина или пароля не существует</h1>");
