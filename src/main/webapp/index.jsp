@@ -11,7 +11,7 @@
     <br><br><br><br>
 <h2>
 <hr>
-<form action="registration.jsp">
+<form action="login.jsp">
 <p align=center><button>авторизация</button></p>
 </form>
 <hr>

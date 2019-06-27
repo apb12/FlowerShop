@@ -29,52 +29,49 @@ public class LoginServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
                 config.getServletContext());
     }
+
     @Override
-    public ServletConfig getServletConfig()
-    {
+    public ServletConfig getServletConfig() {
         return config;
     }
 
     @Override
-    public void destroy(){}
+    public void destroy() {
+    }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException
-    {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //logins(req,resp);
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException
-    {
-        logins(req,resp);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logins(req, resp);
     }
-    public void logins(HttpServletRequest req, HttpServletResponse resp) throws ServletException,IOException
-    {
+
+    public void logins(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
-//
         printWriter.println("<html>");
         printWriter.println("<style>");
-        printWriter.println("body { background: url(images/img2.jpg); }");
+        printWriter.println("body { background: url(images/img4.jpg); }");
         printWriter.println("</style>");
         printWriter.println("<body>");
 
-        if (login != null&&password!=null) {
+        if (!login.isEmpty() && !password.isEmpty()) {
             try {
                 if (userService.login(login, password)) {
-                    printWriter.println("<h1 align=center>Вы авторизовались ,поздравляю " + login + " ,приступим к покупкам!</h1>");
-                }
-                else {
+                    resp.sendRedirect("main.jsp");
+                } else {
                     printWriter.println("<h1 align=center>Такого логина или пароля не существует</h1>");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            printWriter.println("<h1 align=center>Такого логина или пароля не существует</h1>");
+            printWriter.println("<h1 align=center>Вы заполнили не все поля,попробуйте еще раз</h1>");
         }
         printWriter.println("<form action='login.jsp'>");
         printWriter.println("<p align=center><input type=submit name='loginbutton' value='повторная авторизация'/></p>");

@@ -6,7 +6,7 @@
 <body>
     <h1 align=center>ВХОД</h1>
     <hr>
-    <form action="LoginServlet" method="post">
+    <form action="RegistrServlet" method="post">
         <hr>
 	    <p align=center>Введите свое имя:</p>
 		<p align=center><input type="text" name = "name" size="30px"></p>

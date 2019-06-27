@@ -19,5 +19,9 @@
 		<hr>
 		<p align=center><input type="submit" name = "loginButton" value="войти"></p>
 	</form>
+	<br><br>
+	<form action="registration.jsp">
+	<p align=center><button>регистрация</button></p>
+	</form>
 </body>
 </html>
