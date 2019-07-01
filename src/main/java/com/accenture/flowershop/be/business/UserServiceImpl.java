@@ -1,6 +1,7 @@
 package com.accenture.flowershop.be.business;
 
 import com.accenture.flowershop.be.access.UserDao;
+import com.accenture.flowershop.be.enitity.UserEnitity;
 import com.accenture.flowershop.fe.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean login(String login, String password) {
-        User user = userDao.getUserByLogin(login);
+        UserEnitity user = userDao.getUserByLogin(login);
         if (user != null && user.getPassword().equalsIgnoreCase(password)) {
             return true;
         }

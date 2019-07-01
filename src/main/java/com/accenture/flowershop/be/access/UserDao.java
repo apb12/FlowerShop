@@ -1,8 +1,9 @@
 package com.accenture.flowershop.be.access;
 
+import com.accenture.flowershop.be.enitity.UserEnitity;
 import com.accenture.flowershop.fe.dto.User;
 
 public interface UserDao {
-    User getUserByLogin(String login);
+    UserEnitity getUserByLogin(String login);
 
 }
