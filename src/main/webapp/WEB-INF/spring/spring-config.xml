@@ -10,18 +10,20 @@
        http://www.springframework.org/schema/jee/spring-jee-2.5.xsd">
     <context:component-scan base-package="com.accenture.flowershop"/>
 
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" >
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-<!--    <tx:annotation-driven/>-->
+    <!--    <tx:annotation-driven/>-->
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/flowerShopDS"/>
 
     <bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
         <property name="dataSource" ref="dataSource"/>
         <property name="locations">
-            <array><value>dbscripts</value></array>
+            <array>
+                <value>dbscripts</value>
+            </array>
         </property>
         <property name="baselineOnMigrate" value="false"/>
         <property name="outOfOrder" value="true"/>
@@ -34,17 +36,19 @@
           depends-on="flyway">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
-            <list><value>com.accenture.flowershop.be.enitity</value></list>
+            <list>
+                <value>com.accenture.flowershop.be.enitity</value>
+            </list>
         </property>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="database" value="ORACLE" />
+                <property name="database" value="ORACLE"/>
                 <property name="generateDdl" value="false"/>
                 <property name="showSql" value="true"/>
             </bean>
         </property>
         <property name="jpaDialect">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
         </property>
         <property name="jpaProperties">
             <props>

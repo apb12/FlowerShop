@@ -1,5 +1,3 @@
-
-
 create table USERS(
 
     login varchar(30) primary key,
