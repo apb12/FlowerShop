@@ -2,13 +2,11 @@ package com.accenture.flowershop.be.enitity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity()
-@Table(name = "USERS")
-public class UserEnitity implements Serializable {
+@Entity
+public class Users implements Serializable {
 
     @Id
     private String login;
@@ -18,7 +16,11 @@ public class UserEnitity implements Serializable {
     private BigDecimal balance;
     private Integer discount;
 
-    public UserEnitity(String login, String password, String username, String email, BigDecimal balance, Integer discount) {
+
+    public Users() {
+    }
+
+    public Users(String login, String password, String username, String email, BigDecimal balance, Integer discount) {
         this.login = login;
         this.password = password;
         this.username = username;
@@ -26,11 +28,6 @@ public class UserEnitity implements Serializable {
         this.balance = balance;
         this.discount = discount;
     }
-
-
-
-    public UserEnitity(){}
-
 
 
     public String getLogin() {
@@ -80,6 +77,4 @@ public class UserEnitity implements Serializable {
     public void setDiscount(Integer discount) {
         this.discount = discount;
     }
-
-
 }
