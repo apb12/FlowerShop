@@ -1,11 +1,23 @@
-package com.accenture.flowershop.fe.dto;
+package com.accenture.flowershop.be.enitity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
+@Entity
 public class Flower {
+
+    public Flower(){}
+
+    @Id
     private long id;
     private String name;
     private BigDecimal price;
+    private long total;
+
+    public Flower(long id, String name, BigDecimal price, long total) {
+
+    }
 
     public long getId() {
         return id;
@@ -31,11 +43,13 @@ public class Flower {
         this.price = price;
     }
 
-
-
-    public Flower(long id, String name, BigDecimal price) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
+    public long getTotal() {
+        return total;
     }
+
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+
 }
