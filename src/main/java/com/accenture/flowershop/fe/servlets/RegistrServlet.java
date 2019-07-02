@@ -62,7 +62,7 @@ public class RegistrServlet extends HttpServlet {
 
         if (!login.equals("") && !name.equals("") && !password.equals("") && !email.equals("")) {
             try {
-                if (!userService.loginExist(login)) {
+                if (!userService.loginExist(login)&&userService.registr(login,password,name,email)) {
                     resp.sendRedirect("login.jsp");
                 } else {
                     printWriter.println("<h1 align=center>Пользователь с таким логином = " + login + " уже существует</h1>");
