@@ -80,7 +80,7 @@ public class MainPageServlet extends HttpServlet {
             printWriter.println("<tr>");
                 printWriter.println("<td>" + flowerList.get(i).getName() + "</td>");
                 printWriter.println("<td>" + flowerList.get(i).getPrice()+ "</td>");
-                printWriter.println("<td>" + flowerStockService.getCountById(i+1) + "</td>");
+                printWriter.println("<td>" + flowerStockService.getCountById(i+100) + "</td>");
                 printWriter.println("<td>");
                 printWriter.println(" <form >");
                 printWriter.println("<input type='number' name='cm' autofocus>");

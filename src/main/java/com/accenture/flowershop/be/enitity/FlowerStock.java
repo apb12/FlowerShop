@@ -32,12 +32,11 @@ public class FlowerStock implements Serializable {
     public void setCount(long count) {
         this.count = count;
     }
-
+    @Id
     @OneToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "Flower_id")
     private Flower flower;
 
-    @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FLOWERSTOCK_SEQ")
     @SequenceGenerator(name = "FLOWERSTOCK_SEQ", sequenceName = "FLOWERSTOCK_SEQ", allocationSize = 1)
     private long id;
