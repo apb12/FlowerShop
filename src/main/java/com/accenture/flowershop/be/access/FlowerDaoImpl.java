@@ -17,6 +17,11 @@ public class FlowerDaoImpl implements FlowerDao {
     private EntityManager em;
 
     @Override
+    public Flower findById(long id) {
+        return em.find(Flower.class,id);
+    }
+
+    @Override
     public List<Flower> findAll() {
 
             TypedQuery<Flower> q = em.createQuery(" Select  f from Flower f ",Flower.class);

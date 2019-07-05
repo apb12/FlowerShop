@@ -2,20 +2,22 @@ package com.accenture.flowershop.be.enitity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Flower {
+public class Flower implements Serializable {
 
     public Flower(){}
+
+
 
     @Id
     private long id;
     private String name;
     private BigDecimal price;
-    private long total;
 
-    public Flower(long id, String name, BigDecimal price, long total) {
+    public Flower(long id,String name, BigDecimal price) {
 
     }
 
@@ -26,7 +28,6 @@ public class Flower {
     public void setId(long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
@@ -43,13 +44,6 @@ public class Flower {
         this.price = price;
     }
 
-    public long getTotal() {
-        return total;
-    }
-
-    public void setTotal(long total) {
-        this.total = total;
-    }
 
 
 }

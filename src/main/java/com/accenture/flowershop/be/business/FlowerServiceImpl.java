@@ -17,4 +17,10 @@ public class FlowerServiceImpl implements FlowerService {
     public List<Flower> findAll() {
         return flowerDao.findAll();
     }
+
+    @Override
+    public Flower findById(long id) {
+        return flowerDao.findById(id);
+    }
+
 }
