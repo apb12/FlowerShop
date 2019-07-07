@@ -6,8 +6,12 @@ import java.util.List;
 
 public interface FlowerDao {
     Flower findById(long id);
+
     List<Flower> findAll();
+
     void removeFlower(long id);
-    List<Flower>sortAsc();
-    List<Flower>sortDesc();
+
+    List<Flower> sortAsc();
+
+    List<Flower> sortDesc();
 }

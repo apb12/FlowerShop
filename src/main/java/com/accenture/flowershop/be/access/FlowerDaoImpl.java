@@ -18,21 +18,17 @@ public class FlowerDaoImpl implements FlowerDao {
 
     @Override
     public Flower findById(long id) {
-        return em.find(Flower.class,id);
+        return em.find(Flower.class, id);
     }
 
     @Override
     public List<Flower> findAll() {
-
-            TypedQuery<Flower> q = em.createQuery(" Select  f from Flower f ",Flower.class);
-
-            return q.getResultList();
-        }
-
+        TypedQuery<Flower> q = em.createQuery(" Select  f from Flower f ", Flower.class);
+        return q.getResultList();
+    }
 
     @Override
     public void removeFlower(long id) {
-
     }
 
     @Override

@@ -22,7 +22,6 @@ public class LoginServlet extends HttpServlet {
 
     private ServletConfig config;
 
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.config = config;
@@ -42,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logins(req,resp);
+        logins(req, resp);
     }
 
     @Override
@@ -64,14 +63,14 @@ public class LoginServlet extends HttpServlet {
         if (!login.isEmpty() && !password.isEmpty()) {
             try {
                 if (userService.login(login, password)) {
-                    HttpSession session=req.getSession();
-                    session.setAttribute("login",login);
+                    HttpSession session = req.getSession();
+                    session.setAttribute("login", login);
                     session.setMaxInactiveInterval(600);
-                    if(login.equals("admin")) {
+                    if (login.equals("admin")) {
                         resp.sendRedirect("AdminPageServlet");
+                    } else {
+                        resp.sendRedirect("MainPageServlet");
                     }
-                    else {
-                    resp.sendRedirect("MainPageServlet");}
                 } else {
                     printWriter.println("<h1 align=center>Такого логина или пароля не существует</h1>");
                 }

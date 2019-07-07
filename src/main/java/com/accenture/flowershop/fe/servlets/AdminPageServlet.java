@@ -21,7 +21,6 @@ public class AdminPageServlet extends HttpServlet {
 
     private ServletConfig config;
 
-
     @Override
     public void init(ServletConfig config) throws ServletException {
         this.config = config;

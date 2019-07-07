@@ -26,7 +26,8 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-    public boolean registr(String login, String password, String name, String email){
-        return userDao.registration(login,password,name, email);
+
+    public boolean registr(String login, String password, String name, String email) {
+        return userDao.registration(login, password, name, email);
     }
 }

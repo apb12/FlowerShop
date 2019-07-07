@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface FlowerService {
     List<Flower> findAll();
+
     Flower findById(long id);
 }

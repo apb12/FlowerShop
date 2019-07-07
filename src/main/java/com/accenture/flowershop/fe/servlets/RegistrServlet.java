@@ -53,7 +53,6 @@ public class RegistrServlet extends HttpServlet {
         String email = req.getParameter("email");
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
-
         printWriter.println("<html>");
         printWriter.println("<style>");
         printWriter.println("body { background: url(images/img4.jpg); }");
@@ -62,7 +61,7 @@ public class RegistrServlet extends HttpServlet {
 
         if (!login.equals("") && !name.equals("") && !password.equals("") && !email.equals("")) {
             try {
-                if (!userService.loginExist(login)&&userService.registr(login,password,name,email)) {
+                if (!userService.loginExist(login) && userService.registr(login, password, name, email)) {
                     resp.sendRedirect("login.jsp");
                 } else {
                     printWriter.println("<h1 align=center>Пользователь с таким логином = " + login + " уже существует</h1>");

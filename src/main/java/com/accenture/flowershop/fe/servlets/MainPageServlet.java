@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -59,8 +58,8 @@ public class MainPageServlet extends HttpServlet {
 
     public void userSession(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
-        List<Flower>flowerList=flowerService.findAll();
-       // List<Flower>bucketList=new ArrayList<>();
+        List<Flower> flowerList = flowerService.findAll();
+        // List<Flower>bucketList=new ArrayList<>();
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
         printWriter.println("<html>");
@@ -76,26 +75,23 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("<td> Остаток</td>");
         printWriter.println("<td align=center> Корзина </td>");
         printWriter.println("</tr>");
-        for (int i = 0; i <flowerList.size() ; i++) {
+        for (int i = 0; i < flowerList.size(); i++) {
             printWriter.println("<tr>");
-                printWriter.println("<td>" + flowerList.get(i).getName() + "</td>");
-                printWriter.println("<td>" + flowerList.get(i).getPrice()+ "</td>");
-                printWriter.println("<td>" + flowerStockService.getCountById(i+100) + "</td>");
-                printWriter.println("<td>");
-                printWriter.println(" <form >");
-                printWriter.println("<input type='number' name='cm' autofocus>");
-                printWriter.println("<button>Положить в корзину</button></p>");
-                printWriter.println("</form>");
-                printWriter.println("</td>");
-                printWriter.println("</tr>");
-
-            }
+            printWriter.println("<td>" + flowerList.get(i).getName() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getPrice() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getFlowerStock().getCount() + "</td>");
+            printWriter.println("<td>");
+            printWriter.println(" <form >");
+            printWriter.println("<input type='number' name='cm' autofocus>");
+            printWriter.println("<button>Положить в корзину</button></p>");
+            printWriter.println("</form>");
+            printWriter.println("</td>");
+            printWriter.println("</tr>");
+        }
         printWriter.println("</table>");
-
-
         printWriter.println("<form action='LogOutServlet'>");
-	    printWriter.println("<p align=center><button>выход</button></p>");
-	    printWriter.println("</form>");
+        printWriter.println("<p align=center><button>выход</button></p>");
+        printWriter.println("</form>");
         printWriter.println("</body>");
         printWriter.println("</html>");
     }

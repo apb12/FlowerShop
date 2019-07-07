@@ -13,9 +13,7 @@ import java.io.IOException;
 @Controller
 public class LogOutServlet extends HttpServlet {
 
-
     private ServletConfig config;
-
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -40,11 +38,9 @@ public class LogOutServlet extends HttpServlet {
         req.getSession().invalidate();
         //req.getRequestDispatcher("login.jsp").include(req, resp);
         resp.sendRedirect("login.jsp");
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }

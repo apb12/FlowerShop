@@ -1,25 +1,25 @@
 package com.accenture.flowershop.be.enitity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 public class Flower implements Serializable {
 
-    public Flower(){}
-
-
+    public Flower() {
+    }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "FLOWER_SEQ")
+    @SequenceGenerator(name = "FLOWER_SEQ", sequenceName = "FLOWER_SEQ", allocationSize = 1)
     private long id;
     private String name;
     private BigDecimal price;
 
-    public Flower(long id,String name, BigDecimal price) {
-
-    }
+    @OneToOne
+    @JoinColumn(name = "id")
+    private FlowerStock flowerStock;
 
     public long getId() {
         return id;
@@ -28,6 +28,7 @@ public class Flower implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }
@@ -44,6 +45,11 @@ public class Flower implements Serializable {
         this.price = price;
     }
 
+    public FlowerStock getFlowerStock() {
+        return flowerStock;
+    }
 
-
+    public void setFlowerStock(FlowerStock flowerStock) {
+        this.flowerStock = flowerStock;
+    }
 }

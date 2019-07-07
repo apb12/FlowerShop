@@ -22,5 +22,4 @@ public class FlowerServiceImpl implements FlowerService {
     public Flower findById(long id) {
         return flowerDao.findById(id);
     }
-
 }
