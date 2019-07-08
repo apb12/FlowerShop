@@ -17,16 +17,15 @@ public class Flower implements Serializable {
     private String name;
     private BigDecimal price;
 
-    @OneToOne
-    @JoinColumn(name = "id")
+    @OneToOne(mappedBy = "flower")
     private FlowerStock flowerStock;
 
     public long getId() {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setId(long idflower) {
+        this.id = idflower;
     }
 
     public String getName() {

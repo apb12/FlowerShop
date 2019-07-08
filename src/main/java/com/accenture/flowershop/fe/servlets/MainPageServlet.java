@@ -4,6 +4,7 @@ import com.accenture.flowershop.be.business.FlowerService;
 import com.accenture.flowershop.be.business.FlowerStockService;
 import com.accenture.flowershop.be.business.UserService;
 import com.accenture.flowershop.be.enitity.Flower;
+import com.accenture.flowershop.be.enitity.FlowerStock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -58,7 +59,7 @@ public class MainPageServlet extends HttpServlet {
 
     public void userSession(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
-        List<Flower> flowerList = flowerService.findAll();
+        List<FlowerStock> flowerList = flowerStockService.findAll();
         // List<Flower>bucketList=new ArrayList<>();
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
@@ -77,9 +78,9 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("</tr>");
         for (int i = 0; i < flowerList.size(); i++) {
             printWriter.println("<tr>");
-            printWriter.println("<td>" + flowerList.get(i).getName() + "</td>");
-            printWriter.println("<td>" + flowerList.get(i).getPrice() + "</td>");
-            printWriter.println("<td>" + flowerList.get(i).getFlowerStock().getCount() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getFlower().getName() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getFlower().getPrice() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getCount() + "</td>");
             printWriter.println("<td>");
             printWriter.println(" <form >");
             printWriter.println("<input type='number' name='cm' autofocus>");

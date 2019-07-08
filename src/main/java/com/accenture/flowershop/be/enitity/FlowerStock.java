@@ -14,7 +14,10 @@ public class FlowerStock implements Serializable {
     @SequenceGenerator(name = "FLOWERSTOCK_SEQ", sequenceName = "FLOWERSTOCK_SEQ", allocationSize = 1)
     private long id;
     private long count;
-    @OneToOne(mappedBy = "flowerStock")
+
+
+    @OneToOne()
+    @JoinColumn(name = "id")
     private Flower flower;
 
     public long getId() {

@@ -1,5 +1,11 @@
 package com.accenture.flowershop.be.access;
 
+import com.accenture.flowershop.be.enitity.FlowerStock;
+
+import java.util.List;
+
 public interface FlowerStockDao {
-    long getCountById(long id);
+
+    List<FlowerStock>findAll();
+
 }
