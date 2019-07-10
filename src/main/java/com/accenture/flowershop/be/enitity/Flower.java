@@ -17,7 +17,8 @@ public class Flower implements Serializable {
     private String name;
     private BigDecimal price;
 
-    @OneToOne(mappedBy = "flower")
+    @OneToOne
+    @JoinColumn(name="id")
     private FlowerStock flowerStock;
 
     public long getId() {
@@ -51,4 +52,5 @@ public class Flower implements Serializable {
     public void setFlowerStock(FlowerStock flowerStock) {
         this.flowerStock = flowerStock;
     }
+
 }

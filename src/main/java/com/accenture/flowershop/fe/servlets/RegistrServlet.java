@@ -59,7 +59,7 @@ public class RegistrServlet extends HttpServlet {
         printWriter.println("</style>");
         printWriter.println("<body>");
 
-        if (!login.equals("") && !name.equals("") && !password.equals("") && !email.equals("")) {
+        if (!login.isEmpty() && !name.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
             try {
                 if (!userService.loginExist(login) && userService.registr(login, password, name, email)) {
                     resp.sendRedirect("login.jsp");

@@ -16,10 +16,6 @@ public class FlowerStock implements Serializable {
     private long count;
 
 
-    @OneToOne()
-    @JoinColumn(name = "id")
-    private Flower flower;
-
     public long getId() {
         return id;
     }
@@ -34,13 +30,5 @@ public class FlowerStock implements Serializable {
 
     public void setCount(long count) {
         this.count = count;
-    }
-
-    public Flower getFlower() {
-        return flower;
-    }
-
-    public void setFlower(Flower flower) {
-        this.flower = flower;
     }
 }

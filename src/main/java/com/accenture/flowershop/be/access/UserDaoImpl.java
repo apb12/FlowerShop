@@ -4,6 +4,7 @@ import com.accenture.flowershop.be.enitity.Users;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
@@ -14,25 +15,35 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager em;
 
-    public Users getUserByLogin(String login) {
-        return em.find(Users.class, login);
-    }
+//    public Users getUserByLogin(String login) {
+//        return em.find(Users.class, login);
+//    }
 
     @Override
     public boolean registration(String login, String password, String name, String email) {
         if (getUserByLogin(login) == null) {
-            em.persist(new Users(login, password, name, email, new BigDecimal(2000), 5));
+            Users user = new Users();
+            user.setLogin(login);
+            user.setPassword(password);
+            user.setUsername(name);
+            user.setEmail(email);
+            user.setBalance(new BigDecimal(2000));
+            user.setDiscount(5);
+            em.persist(user);
             return true;
         }
         return false;
+    }
 
-//    public Users getUserByLogin(String userLogin) {
-//            TypedQuery<Users> q = em.createQuery(" Select u from Users u where u.userLogin = :ul",Users.class);
-//            q.setParameter("ul", userLogin);
-//            return q.getSingleResult();
-//        }
+    public Users getUserByLogin(String login) {
+       try{ TypedQuery<Users> q = em.createQuery(" Select u from Users u where u.login =:ul",Users.class);
+        q.setParameter("ul", login);
+        return q.getSingleResult();}
+       catch (Exception e){
+           return null;}
+    }
 
     }
-}
+
 
 

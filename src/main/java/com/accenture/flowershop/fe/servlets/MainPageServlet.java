@@ -59,7 +59,7 @@ public class MainPageServlet extends HttpServlet {
 
     public void userSession(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
-        List<FlowerStock> flowerList = flowerStockService.findAll();
+        List<Flower> flowerList = flowerService.findAll();
         // List<Flower>bucketList=new ArrayList<>();
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
@@ -78,9 +78,9 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("</tr>");
         for (int i = 0; i < flowerList.size(); i++) {
             printWriter.println("<tr>");
-            printWriter.println("<td>" + flowerList.get(i).getFlower().getName() + "</td>");
-            printWriter.println("<td>" + flowerList.get(i).getFlower().getPrice() + "</td>");
-            printWriter.println("<td>" + flowerList.get(i).getCount() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getName() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getPrice() + "</td>");
+            printWriter.println("<td>" + flowerList.get(i).getFlowerStock().getCount() + "</td>");
             printWriter.println("<td>");
             printWriter.println(" <form >");
             printWriter.println("<input type='number' name='cm' autofocus>");

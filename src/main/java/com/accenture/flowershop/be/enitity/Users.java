@@ -1,14 +1,25 @@
 package com.accenture.flowershop.be.enitity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 public class Users implements Serializable {
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USERS_SEQ")
+    @SequenceGenerator(name = "USERS_SEQ", sequenceName = "USERS_SEQ", allocationSize = 1)
+    private long id;
     private String login;
     private String password;
     private String username;
@@ -16,17 +27,20 @@ public class Users implements Serializable {
     private BigDecimal balance;
     private Integer discount;
 
-
-    public Users() {
+    public List<Orders> getOrdersList() {
+        return ordersList;
     }
 
-    public Users(String login, String password, String username, String email, BigDecimal balance, Integer discount) {
-        this.login = login;
-        this.password = password;
-        this.username = username;
-        this.email = email;
-        this.balance = balance;
-        this.discount = discount;
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
+    }
+
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private List<Orders>ordersList;
+
+
+    public Users() {
     }
 
 
