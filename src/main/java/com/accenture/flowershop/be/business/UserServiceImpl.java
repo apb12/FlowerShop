@@ -30,4 +30,9 @@ public class UserServiceImpl implements UserService {
     public boolean registr(String login, String password, String name, String email) {
         return userDao.registration(login, password, name, email);
     }
+
+    @Override
+    public Users getUserByLogin(String login) {
+        return userDao.getUserByLogin(login);
+    }
 }

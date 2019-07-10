@@ -2,6 +2,7 @@ package com.accenture.flowershop.fe.servlets;
 
 import com.accenture.flowershop.be.business.FlowerService;
 import com.accenture.flowershop.be.business.FlowerStockService;
+import com.accenture.flowershop.be.business.OrdersService;
 import com.accenture.flowershop.be.business.UserService;
 import com.accenture.flowershop.be.enitity.Flower;
 import com.accenture.flowershop.be.enitity.FlowerStock;
@@ -16,10 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Controller
 public class MainPageServlet extends HttpServlet {
+
+    @Autowired
+    private OrdersService ordersService;
 
     @Autowired
     private FlowerStockService flowerStockService;
@@ -60,6 +66,8 @@ public class MainPageServlet extends HttpServlet {
     public void userSession(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
         List<Flower> flowerList = flowerService.findAll();
+        long id=userService.getUserByLogin(login).getId();
+        Date date=new Date();
         // List<Flower>bucketList=new ArrayList<>();
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
@@ -69,6 +77,10 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("</style>");
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Привет " + login + " выберите цветы,которые вам нравятся</h1>");
+        if(ordersService.createOrder(id,date)){
+            for(int i=0;i<userService.getUserByLogin(login).getOrdersList().size();i++){
+            printWriter.println("<h1>ващ заказ номер "+userService.getUserByLogin(login).getOrdersList().get(i).getId()+"был создан</h1>");
+        }}
         printWriter.println("<table align=center border='1' bgcolor=#87CEFA");
         printWriter.println("<tr>");
         printWriter.println("<td align=center> Цветы </td>");

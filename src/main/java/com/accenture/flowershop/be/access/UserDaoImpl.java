@@ -15,9 +15,10 @@ public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager em;
 
-//    public Users getUserByLogin(String login) {
-//        return em.find(Users.class, login);
-//    }
+    @Override
+    public Users getUserById(long id) {
+        return em.find(Users.class, id);
+    }
 
     @Override
     public boolean registration(String login, String password, String name, String email) {

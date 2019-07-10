@@ -6,4 +6,6 @@ public interface UserDao {
     Users getUserByLogin(String login);
 
     boolean registration(String login, String password, String name, String email);
+
+    Users getUserById(long id);
 }

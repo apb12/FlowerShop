@@ -69,7 +69,7 @@ public class LoginServlet extends HttpServlet {
                     if (login.equals("admin")) {
                         resp.sendRedirect("AdminPageServlet");
                     } else {
-                        resp.sendRedirect("MainPageServlet");
+                        resp.sendRedirect("welcome.jsp");
                     }
                 } else {
                     printWriter.println("<h1 align=center>Такого логина или пароля не существует</h1>");
