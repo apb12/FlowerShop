@@ -16,9 +16,7 @@ public class Flower implements Serializable {
     private long id;
     private String name;
     private BigDecimal price;
-
-    @OneToOne
-    @JoinColumn(name="id")
+    @OneToOne(mappedBy = "flower")
     private FlowerStock flowerStock;
 
     public long getId() {

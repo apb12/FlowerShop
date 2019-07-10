@@ -7,7 +7,6 @@ create table USERS(
     email varchar(50)not null,
     balance decimal ,
     discount int,
---    FOREIGN KEY (ID) REFERENCES ORDERS(USER_ID)
 );
 
 insert into USERS values(USERS_SEQ.NEXTVAL,'stas', '111', 'stas', 'stas@admin.com',2000,10);
