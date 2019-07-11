@@ -8,7 +8,7 @@
     <h1 align=center>Привет ,вы успешно авторизовались </h1>
     <hr>
     <br><br>
-    <form action="MainPageServlet">
+    <form action="OrderCreateServlet">
        <p align=center><button>ПРИСТУПИТЬ К ПОКУПКАМ</button></p>
 	</form>
 	<br><br>
