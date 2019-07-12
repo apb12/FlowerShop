@@ -4,7 +4,9 @@ import com.accenture.flowershop.be.business.FlowerService;
 import com.accenture.flowershop.be.business.FlowerStockService;
 import com.accenture.flowershop.be.business.OrdersService;
 import com.accenture.flowershop.be.business.UserService;
+import com.accenture.flowershop.be.enitity.Bucket;
 import com.accenture.flowershop.be.enitity.Flower;
+import com.accenture.flowershop.be.enitity.Orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -61,10 +63,11 @@ public class MainPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         userSession(req, resp);
     }
-
     public void userSession(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
         List<Flower> flowerList = flowerService.findAll();
+        List<Orders>ordersList=userService.getUserByLogin(login).getOrdersList();
+        List<Bucket>bucketList=ordersList.get(ordersList.size()-1).getBucket();
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
         printWriter.println("<html>");
@@ -73,11 +76,21 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("</style>");
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Привет " + login + " выберите цветы,которые вам нравятся</h1>");
-        for (int i = 0; i < userService.getUserByLogin(login).getOrdersList().size(); i++) {
-            printWriter.println("<h1>ващ заказ номер " + userService.getUserByLogin(login).getOrdersList().get(i).getId() + "был создан</h1>");
-            printWriter.println("<h1>Дата создания заказа " + userService.getUserByLogin(login).getOrdersList().get(i).getOrder_date() + "</h1>");
+        for (int i = 0; i < ordersList.size(); i++) {
+            printWriter.println("<h1>ващ заказ номер " + ordersList.get(i).getId() + "был создан</h1>");
+            printWriter.println("<h1>Дата создания заказа " + ordersList.get(i).getOrder_date() + "</h1>");
         }
+            if(bucketList.size()>0) {
+                for (int j = 0; j < bucketList.size(); j++) {
 
+
+                    printWriter.println("<h1>Вы заказали : " + bucketList.get(j).getFlower().getName() + "</h1>");
+                    printWriter.println("<h1>Количество  " + bucketList.get(j).getAmount() + "</h1>");
+                    printWriter.println("<h1>Сумма заказа  " + bucketList.get(j).getPrice() + "</h1>");
+                }
+
+
+            }
         printWriter.println("<table align=center border='1' bgcolor=#87CEFA");
         printWriter.println("<tr>");
         printWriter.println("<td align=center> Цветы </td>");
@@ -91,8 +104,10 @@ public class MainPageServlet extends HttpServlet {
             printWriter.println("<td>" + flowerList.get(i).getPrice() + "</td>");
             printWriter.println("<td>" + flowerList.get(i).getFlowerStock().getCount() + "</td>");
             printWriter.println("<td>");
-            printWriter.println(" <form >");
-            printWriter.println("<input type='number' name='cm' autofocus>");
+            printWriter.println(" <form  action='BucketServlet' method='post'>");
+            printWriter.println("<input type='number' name='amount' autofocus>");
+            printWriter.println("<input type='hidden' name='flowerid' value='"+flowerList.get(i).getId()+"' >");
+            printWriter.println("<input type='hidden' name='orderid' value='"+ordersList.get(ordersList.size()-1).getId()+"' >");
             printWriter.println("<button>Положить в корзину</button></p>");
             printWriter.println("</form>");
             printWriter.println("</td>");

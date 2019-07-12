@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 public class Orders {
 
-    public Orders(){}
+    public Orders() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ORDERS_SEQ")
@@ -22,6 +23,10 @@ public class Orders {
     private Date order_date;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+   // @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany
+    @JoinColumn(name = "orders_id")
+    private List<Bucket> bucket;
 
     public long getId() {
         return id;
@@ -70,9 +75,5 @@ public class Orders {
     public void setBucket(List<Bucket> bucket) {
         this.bucket = bucket;
     }
-
-    @OneToMany
-    @JoinColumn(name="order_id")
-    private List<Bucket> bucket;
 
 }

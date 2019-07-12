@@ -18,6 +18,16 @@ public class Flower implements Serializable {
     private BigDecimal price;
     @OneToOne(mappedBy = "flower")
     private FlowerStock flowerStock;
+//    @OneToOne(mappedBy = "flower")
+//    private Bucket bucket;
+
+//    public Bucket getBucket() {
+//        return bucket;
+//    }
+//
+//    public void setBucket(Bucket bucket) {
+//        this.bucket = bucket;
+//    }
 
     public long getId() {
         return id;

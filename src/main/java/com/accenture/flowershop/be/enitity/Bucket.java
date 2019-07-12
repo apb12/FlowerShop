@@ -5,13 +5,19 @@ import java.math.BigDecimal;
 
 @Entity
 public class Bucket {
-    public Bucket(){}
+    public Bucket() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUCKET_SEQ")
     @SequenceGenerator(name = "BUCKET_SEQ", sequenceName = "BUCKET_SEQ", allocationSize = 1)
     private long id;
-    private long order_id;
+    private long orders_id;
+    private long amount;
+    private BigDecimal price;
+    @ManyToOne
+    @JoinColumn(name = "flower_id")
+    private Flower flower;
 
     public Flower getFlower() {
         return flower;
@@ -21,10 +27,6 @@ public class Bucket {
         this.flower = flower;
     }
 
-    @ManyToOne
-    @JoinColumn(name="flower_id")
-    private Flower flower;
-
     public long getId() {
         return id;
     }
@@ -33,12 +35,12 @@ public class Bucket {
         this.id = id;
     }
 
-    public long getOrder_id() {
-        return order_id;
+    public long getOrders_id() {
+        return orders_id;
     }
 
-    public void setOrder_id(long order_id) {
-        this.order_id = order_id;
+    public void setOrders_id(long order_id) {
+        this.orders_id = order_id;
     }
 
     public long getAmount() {
@@ -56,9 +58,5 @@ public class Bucket {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
-    private long amount;
-    private BigDecimal price;
-
 
 }

@@ -22,6 +22,15 @@
         <url-pattern>/OrderCreateServlet</url-pattern>
     </servlet-mapping>
 
+<servlet>
+        <servlet-name>BucketServlet</servlet-name>
+        <servlet-class>com.accenture.flowershop.fe.servlets.BucketServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>BucketServlet</servlet-name>
+        <url-pattern>/BucketServlet</url-pattern>
+    </servlet-mapping>
+
     <servlet>
         <servlet-name>RegistrServlet</servlet-name>
         <servlet-class>com.accenture.flowershop.fe.servlets.RegistrServlet</servlet-class>

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
+
 @Entity
 public class Users implements Serializable {
 
@@ -25,26 +26,19 @@ public class Users implements Serializable {
     private String email;
     private BigDecimal balance;
     private Integer discount;
-
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+//    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany
     @JoinColumn(name = "user_id")
-    private List<Orders>ordersList;
-
-
-    public List<Orders> getOrdersList() {
-        return ordersList;
-    }
-
-    public void setOrdersList(List<Orders> ordersList) {
-        this.ordersList = ordersList;
-    }
-
-
-
+    private List<Orders> ordersList;
 
     public Users() {
     }
-
+    public List<Orders> getOrdersList() {
+        return ordersList;
+    }
+    public void setOrdersList(List<Orders> ordersList) {
+        this.ordersList = ordersList;
+    }
 
     public String getLogin() {
         return login;

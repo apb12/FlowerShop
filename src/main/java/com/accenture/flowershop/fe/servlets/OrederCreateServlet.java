@@ -42,17 +42,20 @@ public class OrederCreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
+        createOr(req,resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        createOr(req,resp);
+    }
+    public void createOr(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
         String login = (String) req.getSession().getAttribute("login");
         long id = userService.getUserByLogin(login).getId();
 
         if (ordersService.createOrder(id, new Date())) {
             resp.sendRedirect("MainPageServlet");
         } else resp.sendRedirect("login.jsp");
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     }
 }
 

@@ -4,6 +4,7 @@ import com.accenture.flowershop.be.access.UserDao;
 import com.accenture.flowershop.be.enitity.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -26,13 +27,17 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-
+    @Transactional
     public boolean registr(String login, String password, String name, String email) {
         return userDao.registration(login, password, name, email);
     }
 
     @Override
+    @Transactional
     public Users getUserByLogin(String login) {
-        return userDao.getUserByLogin(login);
+        Users userByLogin = userDao.getUserByLogin(login);
+       if( userByLogin.getOrdersList().size()>0){
+        userByLogin.getOrdersList().get(userByLogin.getOrdersList().size()-1).getBucket().size();}
+        return userByLogin;
     }
 }

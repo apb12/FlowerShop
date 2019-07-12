@@ -7,13 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Repository
-@Transactional
 public class OrdersDaoImpl implements OrdersDao{
 
     @PersistenceContext
