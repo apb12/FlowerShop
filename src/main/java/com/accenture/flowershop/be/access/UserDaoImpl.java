@@ -39,8 +39,8 @@ public class UserDaoImpl implements UserDao {
         q.setParameter("ul", login);
         return q.getSingleResult();}
        catch (Exception e){
-           return null;}
-    }
+        return null;}
+}
 
     }
 

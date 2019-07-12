@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Repository
 public class OrdersDaoImpl implements OrdersDao{
@@ -18,6 +20,7 @@ public class OrdersDaoImpl implements OrdersDao{
 
     @Autowired
    private UserDao userDao;
+
 
    public boolean createOrder(long user_id, Date order_date){
        if(userDao.getUserById(user_id)!=null){
@@ -32,4 +35,35 @@ public class OrdersDaoImpl implements OrdersDao{
 
         }
 
-}
+    @Override
+    public Orders findOrdersById(long id) {
+      return   em.find(Orders.class,id);
+    }
+
+           @Override
+        public void updateOrders(long id, BigDecimal price, OrderStatus orderStatus) {
+            Orders or=findOrdersById(id);
+            or.setTotal_price(price);
+            or.setStatus(orderStatus);
+            em.merge(or);
+
+    }
+
+    @Override
+    public void updateOrders(long id, OrderStatus orderStatus) {
+       Orders or=findOrdersById(id);
+       or.setStatus(orderStatus);
+       em.merge(or);
+
+    }
+
+    @Override
+    public List<Orders> findOrderByStatus(OrderStatus orderstatus) {
+         TypedQuery<Orders> q = em.createQuery(" Select u from Orders u where u.status =:ul",Orders.class);
+            q.setParameter("ul", orderstatus);
+            return q.getResultList();}
+
+
+    }
+
+

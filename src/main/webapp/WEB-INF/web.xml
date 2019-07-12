@@ -22,13 +22,29 @@
         <url-pattern>/OrderCreateServlet</url-pattern>
     </servlet-mapping>
 
-<servlet>
+    <servlet>
         <servlet-name>BucketServlet</servlet-name>
         <servlet-class>com.accenture.flowershop.fe.servlets.BucketServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>BucketServlet</servlet-name>
         <url-pattern>/BucketServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>OrderPayServlet</servlet-name>
+        <servlet-class>com.accenture.flowershop.fe.servlets.OrderPayServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>OrderPayServlet</servlet-name>
+        <url-pattern>/OrderPayServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PaidServlet</servlet-name>
+        <servlet-class>com.accenture.flowershop.fe.servlets.PaidServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PaidServlet</servlet-name>
+        <url-pattern>/PaidServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
