@@ -13,4 +13,6 @@ public interface OrdersService {
     void updateOrders(long id, BigDecimal price, OrderStatus orderStatus);
     void updateOrders(long id,OrderStatus orderStatus);
     List<Orders> findOrderByStatus(OrderStatus status);
+    void ordersDelete(long id);
+    List<Orders> findOrderByUser(long id);
 }

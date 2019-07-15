@@ -12,12 +12,23 @@ public class Bucket {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BUCKET_SEQ")
     @SequenceGenerator(name = "BUCKET_SEQ", sequenceName = "BUCKET_SEQ", allocationSize = 1)
     private long id;
-    private long orders_id;
     private long amount;
     private BigDecimal price;
     @ManyToOne
     @JoinColumn(name = "flower_id")
     private Flower flower;
+
+    public Orders getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Orders orders) {
+        this.orders = orders;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "orders_id")
+    private Orders orders;
 
     public Flower getFlower() {
         return flower;
@@ -33,14 +44,6 @@ public class Bucket {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getOrders_id() {
-        return orders_id;
-    }
-
-    public void setOrders_id(long order_id) {
-        this.orders_id = order_id;
     }
 
     public long getAmount() {

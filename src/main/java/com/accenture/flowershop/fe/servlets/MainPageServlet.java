@@ -76,21 +76,6 @@ public class MainPageServlet extends HttpServlet {
         printWriter.println("</style>");
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Привет " + login + " выберите цветы,которые вам нравятся</h1>");
-        for (int i = 0; i < ordersList.size(); i++) {
-            printWriter.println("<h1>ващ заказ номер " + ordersList.get(i).getId() + "был создан</h1>");
-            printWriter.println("<h1>Дата создания заказа " + ordersList.get(i).getOrder_date() + "</h1>");
-        }
-            if(bucketList.size()>0) {
-                for (int j = 0; j < bucketList.size(); j++) {
-
-
-                    printWriter.println("<h1>Вы заказали : " + bucketList.get(j).getFlower().getName() + "</h1>");
-                    printWriter.println("<h1>Количество  " + bucketList.get(j).getAmount() + "</h1>");
-                    printWriter.println("<h1>Сумма заказа  " + bucketList.get(j).getPrice() + "</h1>");
-                }
-
-
-            }
         printWriter.println("<table align=center border='1' bgcolor=#87CEFA");
         printWriter.println("<tr>");
         printWriter.println("<td align=center> Цветы </td>");
@@ -105,7 +90,7 @@ public class MainPageServlet extends HttpServlet {
             printWriter.println("<td>" + flowerList.get(i).getFlowerStock().getCount() + "</td>");
             printWriter.println("<td>");
             printWriter.println(" <form  action='BucketServlet' method='post'>");
-            printWriter.println("<input type='number' name='amount' autofocus>");
+            printWriter.println("<input type='number' step=1 min=1 pattern=[0-9]{3} name='amount' autofocus required>");
             printWriter.println("<input type='hidden' name='flowerid' value='"+flowerList.get(i).getId()+"' >");
             printWriter.println("<input type='hidden' name='orderid' value='"+ordersList.get(ordersList.size()-1).getId()+"' >");
             printWriter.println("<button>Положить в корзину</button></p>");

@@ -31,6 +31,30 @@
         <url-pattern>/BucketServlet</url-pattern>
     </servlet-mapping>
     <servlet>
+        <servlet-name>UserRoomServlet</servlet-name>
+        <servlet-class>com.accenture.flowershop.fe.servlets.UserRoomServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRoomServlet</servlet-name>
+        <url-pattern>/UserRoomServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteOrderServlet</servlet-name>
+        <servlet-class>com.accenture.flowershop.fe.servlets.DeleteOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteOrderServlet</servlet-name>
+        <url-pattern>/DeleteOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>CloseOrderServlet</servlet-name>
+        <servlet-class>com.accenture.flowershop.fe.servlets.CloseOrderServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CloseOrderServlet</servlet-name>
+        <url-pattern>/CloseOrderServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>OrderPayServlet</servlet-name>
         <servlet-class>com.accenture.flowershop.fe.servlets.OrderPayServlet</servlet-class>
     </servlet>

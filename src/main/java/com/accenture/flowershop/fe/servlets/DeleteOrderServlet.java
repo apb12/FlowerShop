@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 
 @Controller
-public class PaidServlet extends HttpServlet {
+public class DeleteOrderServlet extends HttpServlet {
 
     @Autowired
     private OrdersService ordersService;
@@ -42,20 +42,18 @@ public class PaidServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        save(req,resp);
+        deleteOrder(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        save(req,resp);
+        deleteOrder(req,resp);
     }
 
-    public void save(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void deleteOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long orderid = Long.valueOf(req.getParameter("orderid"));
-        BigDecimal bc = new BigDecimal(Long.valueOf(req.getParameter("sum")));
-        if(Long.valueOf(req.getParameter("sum"))>0){
-        ordersService.updateOrders(orderid,bc, OrderStatus.PAID);}
-        resp.sendRedirect("welcome.jsp");
+        ordersService.ordersDelete(orderid);
+        resp.sendRedirect("AdminPageServlet");
 
 
     }

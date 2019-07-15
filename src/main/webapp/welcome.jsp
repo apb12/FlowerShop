@@ -12,6 +12,10 @@
        <p align=center><button>ПРИСТУПИТЬ К ПОКУПКАМ</button></p>
 	</form>
 	<br><br>
+    <form action="UserRoomServlet">
+       <p align=center><button>ЛИЧНЫЙ КАБИНЕТ</button></p>
+	</form>
+	<br><br>
 	<form action="login.jsp">
 	<p align=center><button>ВЫЙТИ</button></p>
 	</form>

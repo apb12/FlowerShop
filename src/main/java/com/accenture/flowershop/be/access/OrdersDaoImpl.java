@@ -1,6 +1,7 @@
 package com.accenture.flowershop.be.access;
 
 import com.accenture.flowershop.be.enitity.Orders;
+import com.accenture.flowershop.fe.dto.User;
 import com.accenture.flowershop.fe.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -63,7 +64,20 @@ public class OrdersDaoImpl implements OrdersDao{
             q.setParameter("ul", orderstatus);
             return q.getResultList();}
 
-
+    @Override
+    public List<Orders> findOrderByUser(long id) {
+        TypedQuery<Orders> q = em.createQuery(" Select u from Orders u where u.user_id =:ul",Orders.class);
+        q.setParameter("ul", id);
+        return q.getResultList();
     }
+
+    @Override
+   public  void  ordersDelete(long id) {
+        Orders or=findOrdersById(id);
+        em.remove(or);
+    }
+
+
+}
 
 

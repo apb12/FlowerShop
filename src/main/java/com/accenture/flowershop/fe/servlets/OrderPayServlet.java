@@ -80,20 +80,8 @@ public class OrderPayServlet extends HttpServlet {
         printWriter.println("</style>");
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Привет " + login + " ваш баланс составляет "+user.getBalance()+"</h1>");
-            printWriter.println("<h1>ващ заказ номер " + ordersList.get(ordersList.size()-1).getId() + "был создан</h1>");
-            printWriter.println("<h1>Дата создания заказа " + ordersList.get(ordersList.size()-1).getOrder_date() + "</h1>");
+            printWriter.println("<h1>ващ заказ номер " + ordersList.get(ordersList.size()-1).getId() + "</h1>");
 
-//        if(bucketList.size()>0) {
-//            for (int j = 0; j < bucketList.size(); j++) {
-//
-//
-//                printWriter.println("<h1>Вы заказали : " + bucketList.get(j).getFlower().getName() + "</h1>");
-//                printWriter.println("<h1>Количество  " + bucketList.get(j).getAmount() + "</h1>");
-//                printWriter.println("<h1>Сумма заказа  " + bucketList.get(j).getPrice() + "</h1>");
-//            }
-//
-//
-//        }
         printWriter.println("<h3 align=center> КОРЗИНА </h3>");
         printWriter.println("<table align=center border='1' bgcolor=#87CEFA");
         printWriter.println("<tr>");
@@ -110,6 +98,9 @@ public class OrderPayServlet extends HttpServlet {
                 printWriter.println("</tr>");
                 sum+=bucketList.get(i).getPrice().longValue();
             }
+        }
+        if(sum>user.getBalance().longValue()){
+            resp.sendRedirect("errors.jsp");
         }
         printWriter.println("<tr>");
         printWriter.println("<td>Итого к оплате</td>");

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -39,5 +41,15 @@ public class UserServiceImpl implements UserService {
        if( userByLogin.getOrdersList().size()>0){
         userByLogin.getOrdersList().get(userByLogin.getOrdersList().size()-1).getBucket().size();}
         return userByLogin;
+    }
+    @Transactional
+    @Override
+    public void userCashUpdate(long id, BigDecimal cash) {
+        userDao.userCashUpdate(id,cash);
+    }
+
+    @Override
+    public Users getUserById(long id) {
+        return userDao.getUserById(id);
     }
 }

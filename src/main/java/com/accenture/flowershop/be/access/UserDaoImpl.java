@@ -19,6 +19,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void userCashUpdate(long id, BigDecimal cash) {
+        Users user=getUserById(id);
+        user.setBalance(cash);
+        em.merge(user);
+
+    }
+
+    @Override
     public boolean registration(String login, String password, String name, String email) {
         if (getUserByLogin(login) == null) {
             Users user = new Users();
@@ -41,6 +49,7 @@ public class UserDaoImpl implements UserDao {
        catch (Exception e){
         return null;}
 }
+
 
     }
 

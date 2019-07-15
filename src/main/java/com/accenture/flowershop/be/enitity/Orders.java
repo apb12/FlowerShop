@@ -23,9 +23,7 @@ public class Orders {
     private Date order_date;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-   // @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @OneToMany
-    @JoinColumn(name = "orders_id")
+    @OneToMany(mappedBy = "orders",orphanRemoval = true, cascade = CascadeType.ALL)
     private List<Bucket> bucket;
 
     public long getId() {

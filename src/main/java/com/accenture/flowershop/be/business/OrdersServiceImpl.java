@@ -44,4 +44,14 @@ public class OrdersServiceImpl implements OrdersService {
     public List<Orders> findOrderByStatus(OrderStatus status) {
         return ordersDao.findOrderByStatus(status);
     }
+
+    @Override
+    public void ordersDelete(long id) {
+        ordersDao.ordersDelete(id);
+    }
+
+    @Override
+    public List<Orders> findOrderByUser(long id) {
+        return ordersDao.findOrderByUser(id);
+    }
 }
