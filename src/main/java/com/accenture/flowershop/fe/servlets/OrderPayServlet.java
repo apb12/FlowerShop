@@ -66,7 +66,7 @@ public class OrderPayServlet extends HttpServlet {
         doBuy(req, resp);
     }
     public void doBuy(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long sum=0;
+        double sum=0;
         String login = (String) req.getSession().getAttribute("login");
         List<Flower> flowerList = flowerService.findAll();
         Users user=userService.getUserByLogin(login);
@@ -96,9 +96,11 @@ public class OrderPayServlet extends HttpServlet {
                 printWriter.println("<td>" + bucketList.get(i).getAmount() + "</td>");
                 printWriter.println("<td>" + bucketList.get(i).getPrice() + "</td>");
                 printWriter.println("</tr>");
-                sum+=bucketList.get(i).getPrice().longValue();
+                sum+=bucketList.get(i).getPrice().doubleValue();
             }
         }
+        double d=user.getDiscount();
+        sum=sum*((100-d)/100);
         if(sum>user.getBalance().longValue()){
             resp.sendRedirect("errors.jsp");
         }

@@ -52,6 +52,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<Orders> findOrderByUser(long id) {
+        for (int i = 0; i <ordersDao.findOrderByUser(id).size() ; i++) {
+            ordersDao.findOrderByUser(id).get(i).getBucket().size();
+        }
         return ordersDao.findOrderByUser(id);
     }
 }

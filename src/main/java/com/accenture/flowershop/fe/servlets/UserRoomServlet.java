@@ -4,7 +4,6 @@ import com.accenture.flowershop.be.business.OrdersService;
 import com.accenture.flowershop.be.business.UserService;
 import com.accenture.flowershop.be.enitity.Orders;
 import com.accenture.flowershop.be.enitity.Users;
-import com.accenture.flowershop.fe.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -58,8 +57,8 @@ public class UserRoomServlet extends HttpServlet {
 
     public void UserPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
-        Users user=userService.getUserByLogin(login);
-        List<Orders>ordersList=ordersService.findOrderByUser(user.getId());
+        Users user = userService.getUserByLogin(login);
+        List<Orders> ordersList = ordersService.findOrderByUser(user.getId());
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
         printWriter.println("<html>");
@@ -69,10 +68,9 @@ public class UserRoomServlet extends HttpServlet {
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Личный кабинет</h1>");
         printWriter.println("<h1 align=center>Ваш баланс :" + user.getBalance() + "</td>");
+        printWriter.println("<h1 align=center>Ваша скидка :" + user.getDiscount() + "%</td>");
         printWriter.println("<table align=left border='1' bgcolor=#87CEFA>");
-
         printWriter.println("<caption>История покупок</caption>");
-
         printWriter.println("<tr>");
         printWriter.println("<td align=center> Номер заказа </td>");
         printWriter.println("<td>Дата заказа </td>");
@@ -87,8 +85,27 @@ public class UserRoomServlet extends HttpServlet {
         }
         printWriter.println("</table>");
 
-        printWriter.println("<form action='login.jsp'>");
-        printWriter.println("<p align=center><input type=submit name='loginbutton' value='вернуться на главную'/></p>");
+        printWriter.println("<table align=right border='1' bgcolor=#87CEFA>");
+        printWriter.println("<caption>Расшифровка заказа</caption>");
+        printWriter.println("<tr>");
+        printWriter.println("<td align=center> Номер заказа </td>");
+        printWriter.println("<td>цветок </td>");
+        printWriter.println("<td>количество </td>");
+        printWriter.println("</tr>");
+        for (int i = 0; i < ordersList.size(); i++) {
+            for (int j = 0; j < ordersList.get(i).getBucket().size(); j++) {
+
+
+                printWriter.println("<tr>");
+                printWriter.println("<td>" + ordersList.get(i).getId() + "</td>");
+                printWriter.println("<td>" + ordersList.get(i).getBucket().get(j).getFlower().getName() + "</td>");
+                printWriter.println("<td>" + ordersList.get(i).getBucket().get(j).getAmount() + "</td>");
+                printWriter.println("</tr>");
+            }
+        }
+        printWriter.println("</table>");
+        printWriter.println("<form action='welcome.jsp'>");
+        printWriter.println("<p align=center><input type=submit name='loginbutton' value='назад'/></p>");
         printWriter.println("</form>");
         printWriter.println("</body>");
         printWriter.println("</html>");

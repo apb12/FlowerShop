@@ -20,10 +20,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void userCashUpdate(long id, BigDecimal cash) {
-        Users user=getUserById(id);
+        Users user = getUserById(id);
         user.setBalance(cash);
         em.merge(user);
-
     }
 
     @Override
@@ -43,15 +42,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     public Users getUserByLogin(String login) {
-       try{ TypedQuery<Users> q = em.createQuery(" Select u from Users u where u.login =:ul",Users.class);
-        q.setParameter("ul", login);
-        return q.getSingleResult();}
-       catch (Exception e){
-        return null;}
-}
-
-
+        try {
+            TypedQuery<Users> q = em.createQuery(" Select u from Users u where u.login =:ul", Users.class);
+            q.setParameter("ul", login);
+            return q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
+}
 
 
 

@@ -52,11 +52,10 @@ public class PaidServlet extends HttpServlet {
 
     public void save(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long orderid = Long.valueOf(req.getParameter("orderid"));
-        BigDecimal bc = new BigDecimal(Long.valueOf(req.getParameter("sum")));
-        if(Long.valueOf(req.getParameter("sum"))>0){
+        BigDecimal bc = new BigDecimal(Double.valueOf(req.getParameter("sum")));
+        if(Double.valueOf(req.getParameter("sum"))>0){
         ordersService.updateOrders(orderid,bc, OrderStatus.PAID);}
         resp.sendRedirect("welcome.jsp");
-
 
     }
 }

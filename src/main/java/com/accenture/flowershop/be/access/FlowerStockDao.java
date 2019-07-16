@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface FlowerStockDao {
 
-    List<FlowerStock>findAll();
-
+    List<FlowerStock> findAll();
 }
