@@ -1,20 +1,14 @@
 package com.accenture.flowershop.fe.dto;
 
+import java.math.BigDecimal;
+
 public class User {
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
     private String login;
     private String password;
-
-    public User() {
-    }
+    private String username;
+    private String email;
+    private BigDecimal balance;
+    private Integer discount;
 
     public String getLogin() {
         return login;
@@ -32,8 +26,49 @@ public class User {
         this.password = password;
     }
 
-    public User(String login, String password) {
-        this.login = login;
-        this.password = password;
+    public String getUsername() {
+        return username;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public Integer getDiscount() {
+        return discount;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", balance=" + balance +
+                ", discount=" + discount +
+                '}';
+    }
+
+    public void setDiscount(Integer discount) {
+        this.discount = discount;
+    }
+
 }
+

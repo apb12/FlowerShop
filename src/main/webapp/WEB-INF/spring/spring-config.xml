@@ -18,7 +18,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
 
-        <tx:annotation-driven/>
+    <tx:annotation-driven/>
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/flowerShopDS"/>
 
@@ -60,5 +60,13 @@
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
+    </bean>
+
+    <bean id="XMLConverter" class="com.accenture.flowershop.test.XMLConverter">
+        <property name="marshaller" ref="castorMarshaller"/>
+        <property name="unmarshaller" ref="castorMarshaller"/>
+    </bean>
+    <bean id="castorMarshaller" class="org.springframework.oxm.castor.CastorMarshaller">
+        <property name="mappingLocation" value="classpath:/mapping.xml"/>
     </bean>
 </beans>

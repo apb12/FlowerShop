@@ -1,5 +1,6 @@
 package com.accenture.flowershop.fe.servlets;
 
+import com.accenture.flowershop.be.business.UserMarshgallingService;
 import com.accenture.flowershop.be.business.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -16,6 +17,9 @@ public class RegistrServlet extends HttpServlet {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserMarshgallingService userMarshgallingService;
 
     private ServletConfig config;
 
@@ -62,6 +66,7 @@ public class RegistrServlet extends HttpServlet {
         if (!login.isEmpty() && !name.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
             try {
                 if (!userService.loginExist(login) && userService.registr(login, password, name, email)) {
+                    userMarshgallingService.UserToXml(login,password,name,email);
                     resp.sendRedirect("login.jsp");
                 } else {
                     printWriter.println("<h1 align=center>Пользователь с таким логином = " + login + " уже существует</h1>");
