@@ -5,24 +5,19 @@
 
         <map-to xml="user" />
 
-        <field name="username" type="string">
-            <bind-xml name="username" node="attribute" />
-        </field>
+        <field name="username" type="string"/>
 
-        <field name="email" type="string">
-            <bind-xml name="email" node="attribute" />
-        </field>
 
-        <field name="login" type="string">
-            <bind-xml name="login" node="element" />
-        </field>
+        <field name="email" type="string"/>
 
-        <field name="password" type="string">
-            <bind-xml name="password" node="element" />
-        </field>
-        <field name="discount" type="integer">
-            <bind-xml name="discount" node="element" />
-        </field>
+
+        <field name="login" type="string"/>
+
+
+        <field name="password" type="string"/>
+
+        <field name="discount" type="integer"/>
+
 
         <field name="balance"/>
     </class>

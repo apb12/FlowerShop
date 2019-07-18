@@ -1,8 +1,8 @@
 package com.accenture.flowershop.be.access;
 
-        import com.accenture.flowershop.be.enitity.Flower;
+import com.accenture.flowershop.be.enitity.Flower;
 
-        import java.util.List;
+import java.util.List;
 
 public interface FlowerDao {
     Flower findById(long id);

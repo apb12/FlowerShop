@@ -28,6 +28,4 @@ public class UserMarshgallingServiceImpl implements UserMarshgallingService{
         user.setDiscount(10);
         converter.convertFromObjectToXML(user,XML_FILE_NAME);
     }
-
-
 }

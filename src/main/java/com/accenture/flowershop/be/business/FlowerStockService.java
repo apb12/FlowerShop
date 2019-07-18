@@ -8,4 +8,6 @@ import java.util.List;
 public interface FlowerStockService {
 
     List<FlowerStock>findAll();
+    FlowerStock findFlowerStockById(long id);
+    void updateFlowerStock(long id, long count);
 }

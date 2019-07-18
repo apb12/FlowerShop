@@ -1,7 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<user username="sss" email="sss">
-    <login>sss</login>
-    <password>sss</password>
-    <discount>10</discount>
-    <balance>2000</balance>
-</user>
+<user><username>stas</username><email>asv_79@inbox.ru</email><login>sss</login><password>sss</password><discount>10</discount><balance>2000</balance></user>

@@ -7,4 +7,6 @@ import java.util.List;
 public interface FlowerStockDao {
 
     List<FlowerStock> findAll();
+    void updateFlowerStock(long id,long count);
+    FlowerStock findFlowerStockById(long id);
 }

@@ -60,7 +60,6 @@ public class CloseOrderServlet extends HttpServlet {
         long cash=userService.getUserById(userid).getBalance().longValue()-Long.valueOf(req.getParameter("price"));
         BigDecimal cash1=new BigDecimal(cash);
         userService.userCashUpdate(userid,cash1);
-
         ordersService.updateOrders(orderid, OrderStatus.CLOSED);
         resp.sendRedirect("AdminPageServlet");
 

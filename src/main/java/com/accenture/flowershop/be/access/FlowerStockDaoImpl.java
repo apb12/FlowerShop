@@ -19,4 +19,19 @@ public class FlowerStockDaoImpl implements FlowerStockDao {
         TypedQuery<FlowerStock> q = em.createQuery(" Select  f from FlowerStock f ", FlowerStock.class);
         return q.getResultList();
     }
+
+    @Override
+    public void updateFlowerStock(long id, long count) {
+        FlowerStock fs=findFlowerStockById(id);
+        fs.setCount(count);
+        em.merge(fs);
+
+    }
+
+    @Override
+    public FlowerStock findFlowerStockById(long id) {
+        return em.find(FlowerStock.class,id);
+    }
+
+
 }
