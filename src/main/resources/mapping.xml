@@ -2,23 +2,12 @@
         "http://castor.org/mapping.dtd">
 <mapping>
     <class name="com.accenture.flowershop.fe.dto.User">
-
-        <map-to xml="user" />
-
+        <map-to xml="user"/>
         <field name="username" type="string"/>
-
-
         <field name="email" type="string"/>
-
-
         <field name="login" type="string"/>
-
-
         <field name="password" type="string"/>
-
         <field name="discount" type="integer"/>
-
-
         <field name="balance"/>
     </class>
 </mapping>

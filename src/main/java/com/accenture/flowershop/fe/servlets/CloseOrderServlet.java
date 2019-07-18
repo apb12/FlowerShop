@@ -57,9 +57,9 @@ public class CloseOrderServlet extends HttpServlet {
     public void closeOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long orderid = Long.valueOf(req.getParameter("orderid"));
         long userid=Long.valueOf(req.getParameter("userid"));
-        long cash=userService.getUserById(userid).getBalance().longValue()-Long.valueOf(req.getParameter("price"));
-        BigDecimal cash1=new BigDecimal(cash);
-        userService.userCashUpdate(userid,cash1);
+        double cash=userService.getUserById(userid).getBalance().doubleValue()-Double.valueOf(req.getParameter("price"));
+        //BigDecimal cash1=new BigDecimal(cash);
+        userService.userCashUpdate(userid,new BigDecimal(cash));
         ordersService.updateOrders(orderid, OrderStatus.CLOSED);
         resp.sendRedirect("AdminPageServlet");
 

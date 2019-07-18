@@ -75,5 +75,4 @@
     <bean id="FlowerStockWebServiceImpl" class="com.accenture.flowershop.ws.FlowerStockWebServiceImpl"/>
         <jaxws:endpoint id="FlowerStockWebService" implementor="#FlowerStockWebServiceImpl" address="/FlowerStockWebService"/>
 
-
 </beans>
