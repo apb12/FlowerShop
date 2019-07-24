@@ -3,7 +3,9 @@ package com.accenture.flowershop.be.business;
 import com.accenture.flowershop.fe.dto.User;
 import com.accenture.flowershop.test.XMLConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -12,7 +14,8 @@ import java.math.BigDecimal;
 @Service
 public class UserMarshgallingServiceImpl implements UserMarshgallingService{
 
-    private static final String XML_FILE_NAME = "user.xml";
+    @Value("${filepath}")
+    private  String XML_FILE_NAME ;
     @Autowired
     private ApplicationContext applicationContext;
 
