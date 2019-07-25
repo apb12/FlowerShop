@@ -36,7 +36,6 @@ public class LogOutServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
         req.getSession().invalidate();
-        //req.getRequestDispatcher("login.jsp").include(req, resp);
         resp.sendRedirect("login.jsp");
     }
 

@@ -1,9 +1,10 @@
 package com.accenture.flowershop.fe.servlets;
 
 import com.accenture.flowershop.be.business.OrdersService;
-import com.accenture.flowershop.be.business.UserService;
 import com.accenture.flowershop.be.enitity.Orders;
+import com.accenture.flowershop.fe.dto.OrderDTO;
 import com.accenture.flowershop.fe.enums.OrderStatus;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -15,16 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class AdminPageServlet extends HttpServlet {
 
     @Autowired
-    private UserService userService;
+    private OrdersService ordersService;
 
     @Autowired
-    private OrdersService ordersService;
+    private Mapper mapper;
 
     private ServletConfig config;
 
@@ -56,9 +58,18 @@ public class AdminPageServlet extends HttpServlet {
     }
 
     public void adminPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Orders>ordersList=ordersService.findOrderByStatus(OrderStatus.PAID);
-        List<Orders>ordersListDr=ordersService.findOrderByStatus(OrderStatus.DRAFT);
-        List<Orders>ordersListCl=ordersService.findOrderByStatus(OrderStatus.CLOSED);
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+        List<OrderDTO> orderDTOListDr = new ArrayList<>();
+        List<OrderDTO> orderDTOListCl = new ArrayList<>();
+        for (Orders orders : ordersService.findOrderByStatus(OrderStatus.PAID)) {
+            orderDTOList.add(mapper.map(orders, OrderDTO.class));
+        }
+        for (Orders orders : ordersService.findOrderByStatus(OrderStatus.DRAFT)) {
+            orderDTOListDr.add(mapper.map(orders, OrderDTO.class));
+        }
+        for (Orders orders : ordersService.findOrderByStatus(OrderStatus.CLOSED)) {
+            orderDTOListCl.add(mapper.map(orders, OrderDTO.class));
+        }
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
         printWriter.println("<html>");
@@ -68,32 +79,29 @@ public class AdminPageServlet extends HttpServlet {
         printWriter.println("<body>");
         printWriter.println("<h1 align=center>Админ панель</h1>");
         printWriter.println("<table align=left border='1' bgcolor=#87CEFA>");
-
         printWriter.println("<caption>Оплаченые заказы </caption>");
-
         printWriter.println("<tr>");
         printWriter.println("<td align=center> Номер заказа </td>");
         printWriter.println("<td>Дата заказа </td>");
         printWriter.println("<td>Сумма сумма заказа </td>");
         printWriter.println("<td>Действие с заказом</td>");
         printWriter.println("</tr>");
-        for (int i = 0; i < ordersList.size(); i++) {
+        for (int i = 0; i < orderDTOList.size(); i++) {
             printWriter.println("<tr>");
-            printWriter.println("<td>" + ordersList.get(i).getId() + "</td>");
-            printWriter.println("<td>" + ordersList.get(i).getOrder_date() + "</td>");
-            printWriter.println("<td>" + ordersList.get(i).getTotal_price() + "</td>");
+            printWriter.println("<td>" + orderDTOList.get(i).getId() + "</td>");
+            printWriter.println("<td>" + orderDTOList.get(i).getOrder_date() + "</td>");
+            printWriter.println("<td>" + orderDTOList.get(i).getTotal_price() + "</td>");
             printWriter.println("<td>");
             printWriter.println(" <form  action='CloseOrderServlet' method='post'>");
-            printWriter.println("<input type='hidden' name='orderid' value='"+ordersList.get(i).getId()+"' >");
-            printWriter.println("<input type='hidden' name='userid' value='"+ordersList.get(i).getUser_id()+"' >");
-            printWriter.println("<input type='hidden' name='price' value='"+ordersList.get(i).getTotal_price()+"' >");
+            printWriter.println("<input type='hidden' name='orderid' value='" + orderDTOList.get(i).getId() + "' >");
+            printWriter.println("<input type='hidden' name='userid' value='" + orderDTOList.get(i).getUser_id() + "' >");
+            printWriter.println("<input type='hidden' name='price' value='" + orderDTOList.get(i).getTotal_price() + "' >");
             printWriter.println("<button>Выполнить заказ</button></p>");
             printWriter.println("</form>");
             printWriter.println("</td>");
             printWriter.println("</tr>");
         }
         printWriter.println("</table>");
-
         printWriter.println("<table  align=center border='1' bgcolor=#87CEFA>");
         printWriter.println("<caption>Черновики </caption>");
         printWriter.println("<tr>");
@@ -102,21 +110,20 @@ public class AdminPageServlet extends HttpServlet {
         printWriter.println("<td>Статус </td>");
         printWriter.println("<td>Действие с заказом</td>");
         printWriter.println("</tr>");
-        for (int j = 0; j < ordersListDr.size(); j++) {
+        for (int j = 0; j < orderDTOListDr.size(); j++) {
             printWriter.println("<tr>");
-            printWriter.println("<td>" + ordersListDr.get(j).getId() + "</td>");
-            printWriter.println("<td>" + ordersListDr.get(j).getOrder_date() + "</td>");
-            printWriter.println("<td>" + ordersListDr.get(j).getStatus() + "</td>");
+            printWriter.println("<td>" + orderDTOListDr.get(j).getId() + "</td>");
+            printWriter.println("<td>" + orderDTOListDr.get(j).getOrder_date() + "</td>");
+            printWriter.println("<td>" + orderDTOListDr.get(j).getStatus() + "</td>");
             printWriter.println("<td>");
             printWriter.println(" <form  action='DeleteOrderServlet' method='post'>");
-            printWriter.println("<input type='hidden' name='orderid' value='"+ordersListDr.get(j).getId()+"' >");
+            printWriter.println("<input type='hidden' name='orderid' value='" + orderDTOListDr.get(j).getId() + "' >");
             printWriter.println("<button>Удалить заказ</button></p>");
             printWriter.println("</form>");
             printWriter.println("</td>");
             printWriter.println("</tr>");
         }
         printWriter.println("</table>");
-
         printWriter.println("<table align=right border='1' bgcolor=#87CEFA>");
         printWriter.println("<caption>Архив заказов</caption>");
         printWriter.println("<tr>");
@@ -125,12 +132,12 @@ public class AdminPageServlet extends HttpServlet {
         printWriter.println("<td>Сумма заказа </td>");
         printWriter.println("<td>Статус </td>");
         printWriter.println("</tr>");
-        for (int y = 0; y < ordersListCl.size(); y++) {
+        for (int y = 0; y < orderDTOListCl.size(); y++) {
             printWriter.println("<tr>");
-            printWriter.println("<td>" + ordersListCl.get(y).getId() + "</td>");
-            printWriter.println("<td>" + ordersListCl.get(y).getOrder_date() + "</td>");
-            printWriter.println("<td>" + ordersListCl.get(y).getTotal_price() + "</td>");
-            printWriter.println("<td>" + ordersListCl.get(y).getStatus() + "</td>");
+            printWriter.println("<td>" + orderDTOListCl.get(y).getId() + "</td>");
+            printWriter.println("<td>" + orderDTOListCl.get(y).getOrder_date() + "</td>");
+            printWriter.println("<td>" + orderDTOListCl.get(y).getTotal_price() + "</td>");
+            printWriter.println("<td>" + orderDTOListCl.get(y).getStatus() + "</td>");
             printWriter.println("<td>");
             printWriter.println("</tr>");
         }

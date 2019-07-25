@@ -4,6 +4,8 @@ import com.accenture.flowershop.be.business.OrdersService;
 import com.accenture.flowershop.be.business.UserService;
 import com.accenture.flowershop.be.enitity.Orders;
 import com.accenture.flowershop.be.enitity.Users;
+import com.accenture.flowershop.fe.dto.OrderDTO;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,6 +28,9 @@ public class UserRoomServlet extends HttpServlet {
 
     @Autowired
     private OrdersService ordersService;
+
+    @Autowired
+    private Mapper mapper;
 
     private ServletConfig config;
 
@@ -58,7 +64,10 @@ public class UserRoomServlet extends HttpServlet {
     public void UserPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
         Users user = userService.getUserByLogin(login);
-        List<Orders> ordersList = ordersService.findOrderByUser(user.getId());
+        List<OrderDTO> ordersList = new ArrayList<>();
+        for (Orders orders : ordersService.findOrderByUser(user.getId())) {
+            ordersList.add(mapper.map(orders, OrderDTO.class));
+        }
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
         printWriter.println("<html>");
@@ -94,8 +103,6 @@ public class UserRoomServlet extends HttpServlet {
         printWriter.println("</tr>");
         for (int i = 0; i < ordersList.size(); i++) {
             for (int j = 0; j < ordersList.get(i).getBucket().size(); j++) {
-
-
                 printWriter.println("<tr>");
                 printWriter.println("<td>" + ordersList.get(i).getId() + "</td>");
                 printWriter.println("<td>" + ordersList.get(i).getBucket().get(j).getFlower().getName() + "</td>");

@@ -65,7 +65,7 @@
             </props>
         </property>
     </bean>
-
+    <bean id="mapper" class="org.dozer.DozerBeanMapper"/>
     <bean id="XMLConverter" class="com.accenture.flowershop.test.XMLConverter">
         <property name="marshaller" ref="castorMarshaller"/>
         <property name="unmarshaller" ref="castorMarshaller"/>

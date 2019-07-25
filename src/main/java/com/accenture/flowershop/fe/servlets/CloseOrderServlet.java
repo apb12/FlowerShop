@@ -46,23 +46,20 @@ public class CloseOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        closeOrder(req,resp);
+        closeOrder(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        closeOrder(req,resp);
+        closeOrder(req, resp);
     }
 
     public void closeOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long orderid = Long.valueOf(req.getParameter("orderid"));
-        long userid=Long.valueOf(req.getParameter("userid"));
-        double cash=userService.getUserById(userid).getBalance().doubleValue()-Double.valueOf(req.getParameter("price"));
-        //BigDecimal cash1=new BigDecimal(cash);
-        userService.userCashUpdate(userid,new BigDecimal(cash));
+        long userid = Long.valueOf(req.getParameter("userid"));
+        double cash = userService.getUserById(userid).getBalance().doubleValue() - Double.valueOf(req.getParameter("price"));
+        userService.userCashUpdate(userid, new BigDecimal(cash));
         ordersService.updateOrders(orderid, OrderStatus.CLOSED);
         resp.sendRedirect("AdminPageServlet");
-
-
     }
 }

@@ -1,7 +1,6 @@
 package com.accenture.flowershop.fe.servlets;
 
 import com.accenture.flowershop.be.business.BucketService;
-import com.accenture.flowershop.be.enitity.Bucket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -41,21 +40,19 @@ public class BucketServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        save(req,resp);
+        save(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        save(req,resp);
+        save(req, resp);
     }
 
     public void save(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long flowerid = Long.valueOf(req.getParameter("flowerid"));
         long orderid = Long.valueOf(req.getParameter("orderid"));
         long amount = Long.valueOf(req.getParameter("amount"));
-        bucketService.insertBucket(orderid,flowerid,amount);
+        bucketService.insertBucket(orderid, flowerid, amount);
         resp.sendRedirect("MainPageServlet");
-
-
     }
 }

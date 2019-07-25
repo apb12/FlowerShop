@@ -1,12 +1,14 @@
 package com.accenture.flowershop.fe.servlets;
 
 import com.accenture.flowershop.be.business.FlowerService;
-import com.accenture.flowershop.be.business.FlowerStockService;
 import com.accenture.flowershop.be.business.OrdersService;
 import com.accenture.flowershop.be.business.UserService;
-import com.accenture.flowershop.be.enitity.Bucket;
 import com.accenture.flowershop.be.enitity.Flower;
 import com.accenture.flowershop.be.enitity.Orders;
+import com.accenture.flowershop.be.enitity.Users;
+import com.accenture.flowershop.fe.dto.FlowerDTO;
+import com.accenture.flowershop.fe.dto.OrderDTO;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -18,24 +20,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class MainPageServlet extends HttpServlet {
 
-
     @Autowired
     private OrdersService ordersService;
 
     @Autowired
-    private FlowerStockService flowerStockService;
-    @Autowired
     private UserService userService;
+
     @Autowired
     FlowerService flowerService;
 
-    private ServletConfig config;
+    @Autowired
+    private Mapper mapper;
 
+    private ServletConfig config;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -63,11 +66,18 @@ public class MainPageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         userSession(req, resp);
     }
+
     public void userSession(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
-        List<Flower> flowerList = flowerService.findAll();
-        List<Orders>ordersList=userService.getUserByLogin(login).getOrdersList();
-        List<Bucket>bucketList=ordersList.get(ordersList.size()-1).getBucket();
+        Users users = userService.getUserByLogin(login);
+        List<FlowerDTO> flowerList = new ArrayList<>();
+        for (Flower f : flowerService.findAll()) {
+            flowerList.add(mapper.map(f, FlowerDTO.class));
+        }
+        List<OrderDTO> ordersList = new ArrayList<>();
+        for (Orders o : ordersService.findOrderByUser(users.getId())) {
+            ordersList.add(mapper.map(o, OrderDTO.class));
+        }
         resp.setContentType("text/html;charset=UTF-8");
         PrintWriter printWriter = resp.getWriter();
         printWriter.println("<html>");
@@ -91,8 +101,8 @@ public class MainPageServlet extends HttpServlet {
             printWriter.println("<td>");
             printWriter.println(" <form  action='BucketServlet' method='post'>");
             printWriter.println("<input type='number' step=1 min=1 pattern=[0-9]{3} name='amount' autofocus required>");
-            printWriter.println("<input type='hidden' name='flowerid' value='"+flowerList.get(i).getId()+"' >");
-            printWriter.println("<input type='hidden' name='orderid' value='"+ordersList.get(ordersList.size()-1).getId()+"' >");
+            printWriter.println("<input type='hidden' name='flowerid' value='" + flowerList.get(i).getId() + "' >");
+            printWriter.println("<input type='hidden' name='orderid' value='" + ordersList.get(ordersList.size() - 1).getId() + "' >");
             printWriter.println("<button>Положить в корзину</button></p>");
             printWriter.println("</form>");
             printWriter.println("</td>");

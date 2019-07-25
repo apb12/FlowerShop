@@ -66,7 +66,7 @@ public class RegistrServlet extends HttpServlet {
         if (!login.isEmpty() && !name.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
             try {
                 if (!userService.loginExist(login) && userService.registr(login, password, name, email)) {
-                    userMarshgallingService.UserToXml(login,password,name,email);
+                    userMarshgallingService.UserToXml(login, password, name, email);
                     resp.sendRedirect("login.jsp");
                 } else {
                     printWriter.println("<h1 align=center>Пользователь с таким логином = " + login + " уже существует</h1>");

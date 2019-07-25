@@ -42,14 +42,15 @@ public class OrederCreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        createOr(req,resp);
+        createOr(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        createOr(req,resp);
+        createOr(req, resp);
     }
-    public void createOr(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+
+    public void createOr(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String login = (String) req.getSession().getAttribute("login");
         long id = userService.getUserByLogin(login).getId();
 

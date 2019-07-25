@@ -1,7 +1,6 @@
 package com.accenture.flowershop.fe.servlets;
 
 import com.accenture.flowershop.be.business.OrdersService;
-import com.accenture.flowershop.fe.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 
 @Controller
 public class DeleteOrderServlet extends HttpServlet {
@@ -42,19 +40,17 @@ public class DeleteOrderServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        deleteOrder(req,resp);
+        deleteOrder(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        deleteOrder(req,resp);
+        deleteOrder(req, resp);
     }
 
     public void deleteOrder(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long orderid = Long.valueOf(req.getParameter("orderid"));
         ordersService.ordersDelete(orderid);
         resp.sendRedirect("AdminPageServlet");
-
-
     }
 }

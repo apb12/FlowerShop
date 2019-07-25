@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<user><username>dfadfas</username><email>asdasdas</email><login>asdasdas</login><password>asdasdas</password><discount>10</discount><balance>2000</balance></user>
+<userDTO><username>dfadfas</username><email>asdasdas</email><login>asdasdas</login><password>asdasdas</password><discount>10</discount><balance>2000</balance></userDTO>

@@ -17,10 +17,10 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Autowired
     private OrdersDao ordersDao;
+
     @Override
-   // @Transactional
-    public boolean createOrder(long user_id,Date order_date) {
-        return ordersDao.createOrder(user_id,order_date);
+    public boolean createOrder(long user_id, Date order_date) {
+        return ordersDao.createOrder(user_id, order_date);
     }
 
     @Override
@@ -30,18 +30,21 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public void updateOrders(long id, BigDecimal price, OrderStatus orderStatus) {
-        ordersDao.updateOrders(id,price,orderStatus);
+        ordersDao.updateOrders(id, price, orderStatus);
 
     }
 
     @Override
     public void updateOrders(long id, OrderStatus orderStatus) {
-        ordersDao.updateOrders(id,orderStatus);
+        ordersDao.updateOrders(id, orderStatus);
 
     }
 
     @Override
     public List<Orders> findOrderByStatus(OrderStatus status) {
+        for (int i = 0; i < ordersDao.findOrderByStatus(status).size(); i++) {
+            ordersDao.findOrderByStatus(status).get(i).getBucket().size();
+        }
         return ordersDao.findOrderByStatus(status);
     }
 
@@ -52,7 +55,7 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public List<Orders> findOrderByUser(long id) {
-        for (int i = 0; i <ordersDao.findOrderByUser(id).size() ; i++) {
+        for (int i = 0; i < ordersDao.findOrderByUser(id).size(); i++) {
             ordersDao.findOrderByUser(id).get(i).getBucket().size();
         }
         return ordersDao.findOrderByUser(id);
