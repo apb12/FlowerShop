@@ -26,6 +26,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public void userDiscountUpdate(String login, Integer discount) {
+        Users user = getUserByLogin(login);
+        user.setDiscount(discount);
+        em.merge(user);
+    }
+
+    @Override
     public boolean registration(String login, String password, String name, String email) {
         if (getUserByLogin(login) == null) {
             Users user = new Users();

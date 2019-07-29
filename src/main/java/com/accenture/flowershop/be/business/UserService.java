@@ -14,4 +14,5 @@ public interface UserService {
     Users getUserByLogin(String login);
     void userCashUpdate(long id, BigDecimal cash);
     Users getUserById(long id);
+    void userDiscountUpdate(String login,Integer discount);
 }

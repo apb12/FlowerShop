@@ -25,7 +25,9 @@ public class OrdersServiceImpl implements OrdersService {
 
     @Override
     public Orders findOrdersById(long id) {
+        ordersDao.findOrdersById(id).getBucket().size();
         return ordersDao.findOrdersById(id);
+
     }
 
     @Override

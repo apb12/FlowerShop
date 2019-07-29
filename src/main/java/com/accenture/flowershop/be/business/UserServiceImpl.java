@@ -52,4 +52,10 @@ public class UserServiceImpl implements UserService {
     public Users getUserById(long id) {
         return userDao.getUserById(id);
     }
+
+    @Transactional
+    @Override
+    public void userDiscountUpdate(String login,Integer discount){
+        userDao.userDiscountUpdate(login,discount);
+    }
 }

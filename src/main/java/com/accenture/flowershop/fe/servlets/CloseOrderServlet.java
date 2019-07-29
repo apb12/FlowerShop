@@ -1,7 +1,11 @@
 package com.accenture.flowershop.fe.servlets;
 
+import com.accenture.flowershop.be.business.FlowerStockService;
 import com.accenture.flowershop.be.business.OrdersService;
 import com.accenture.flowershop.be.business.UserService;
+import com.accenture.flowershop.be.enitity.Bucket;
+import com.accenture.flowershop.be.enitity.Flower;
+import com.accenture.flowershop.be.enitity.FlowerStock;
 import com.accenture.flowershop.fe.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,9 @@ public class CloseOrderServlet extends HttpServlet {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private FlowerStockService flowerStockService;
 
 
     private ServletConfig config;
@@ -59,6 +66,11 @@ public class CloseOrderServlet extends HttpServlet {
         long userid = Long.valueOf(req.getParameter("userid"));
         double cash = userService.getUserById(userid).getBalance().doubleValue() - Double.valueOf(req.getParameter("price"));
         userService.userCashUpdate(userid, new BigDecimal(cash));
+       for(Bucket b:ordersService.findOrdersById(orderid).getBucket()){
+         long fl=  b.getFlower().getFlowerStock().getCount()-b.getAmount();
+         flowerStockService.updateFlowerStock(b.getFlower().getFlowerStock().getId(),fl);
+
+       }
         ordersService.updateOrders(orderid, OrderStatus.CLOSED);
         resp.sendRedirect("AdminPageServlet");
     }

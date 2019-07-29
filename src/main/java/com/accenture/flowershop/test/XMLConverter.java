@@ -5,9 +5,8 @@ import org.springframework.oxm.Unmarshaller;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class XMLConverter {
 
@@ -44,17 +43,17 @@ public class XMLConverter {
         }
     }
 
-    public Object convertFromXMLToObject(String xmlfile) throws IOException {
+    public String convertFromObjectToString(Object o) throws IOException {
+        StringWriter stringWriter = new StringWriter();
+        getMarshaller().marshal(o, new StreamResult(stringWriter));
+        return stringWriter.toString();
 
-        FileInputStream is = null;
-        try {
-            is = new FileInputStream(xmlfile);
-            return getUnmarshaller().unmarshal(new StreamSource(is));
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-        }
     }
 
+    public Object convertFromXMLToObject(String xmlfile) throws IOException {
+        InputStream is = new ByteArrayInputStream(xmlfile.getBytes(StandardCharsets.UTF_8));
+        return getUnmarshaller().unmarshal(new StreamSource(is));
+    }
 }
+
+

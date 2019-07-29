@@ -12,4 +12,6 @@ public interface UserDao {
     Users getUserById(long id);
 
     void userCashUpdate(long id, BigDecimal cash);
+
+    void userDiscountUpdate(String login, Integer discount);
 }

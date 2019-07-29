@@ -26,6 +26,10 @@
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/flowerShopDS"/>
 
+    <jee:jndi-lookup id="connectionFactory" jndi-name="jms/connectionFactory"/>
+    <jee:jndi-lookup id="sendNewUsersXmlQueue" jndi-name="jms/outQueue"/>
+    <jee:jndi-lookup id="receiveUserDiscountXmlQueue" jndi-name="jms/inQueue"/>
+
     <bean id="flyway" class="org.flywaydb.core.Flyway" init-method="migrate">
         <property name="dataSource" ref="dataSource"/>
         <property name="locations">
@@ -74,6 +78,7 @@
         <property name="mappingLocation" value="classpath:/mapping.xml"/>
     </bean>
     <bean id="FlowerStockWebServiceImpl" class="com.accenture.flowershop.ws.FlowerStockWebServiceImpl"/>
-        <jaxws:endpoint id="FlowerStockWebService" implementor="#FlowerStockWebServiceImpl" address="/FlowerStockWebService"/>
+    <jaxws:endpoint id="FlowerStockWebService" implementor="#FlowerStockWebServiceImpl"
+                    address="/FlowerStockWebService"/>
 
 </beans>

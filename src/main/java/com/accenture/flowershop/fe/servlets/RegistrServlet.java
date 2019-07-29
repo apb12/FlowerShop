@@ -1,7 +1,11 @@
 package com.accenture.flowershop.fe.servlets;
 
+import com.accenture.flowershop.be.business.JmsReciever;
+import com.accenture.flowershop.be.business.JmsService;
 import com.accenture.flowershop.be.business.UserMarshgallingService;
 import com.accenture.flowershop.be.business.UserService;
+import com.accenture.flowershop.fe.dto.UserDTO;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -20,6 +24,13 @@ public class RegistrServlet extends HttpServlet {
 
     @Autowired
     private UserMarshgallingService userMarshgallingService;
+
+    @Autowired
+    private JmsService jmsService;
+    @Autowired
+    private JmsReciever jmsReciever;
+    @Autowired
+    Mapper mapper;
 
     private ServletConfig config;
 
@@ -66,7 +77,8 @@ public class RegistrServlet extends HttpServlet {
         if (!login.isEmpty() && !name.isEmpty() && !password.isEmpty() && !email.isEmpty()) {
             try {
                 if (!userService.loginExist(login) && userService.registr(login, password, name, email)) {
-                    userMarshgallingService.UserToXml(login, password, name, email);
+                    userMarshgallingService.UserToXml(login);
+                    jmsService.setSendNewUsers(mapper.map(userService.getUserByLogin(login), UserDTO.class));
                     resp.sendRedirect("login.jsp");
                 } else {
                     printWriter.println("<h1 align=center>Пользователь с таким логином = " + login + " уже существует</h1>");

@@ -26,7 +26,6 @@ public class Users implements Serializable {
     private String email;
     private BigDecimal balance;
     private Integer discount;
-//    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Orders> ordersList;
@@ -86,5 +85,19 @@ public class Users implements Serializable {
 
     public void setDiscount(Integer discount) {
         this.discount = discount;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", balance=" + balance +
+                ", discount=" + discount +
+                ", ordersList=" + ordersList +
+                '}';
     }
 }
