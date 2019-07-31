@@ -5,7 +5,9 @@
         <map-to xml="userDTO"/>
         <field name="username" type="string"/>
         <field name="email" type="string"/>
-        <field name="login" type="string"/>
+        <field name="login" type="string">
+            <bind-xml name="login" node="attribute"/>
+        </field>
         <field name="password" type="string"/>
         <field name="discount" type="integer"/>
         <field name="balance"/>

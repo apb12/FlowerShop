@@ -1,7 +1,5 @@
 package com.accenture.flowershop.be.business;
 
-import com.accenture.flowershop.fe.dto.UserDTO;
-import com.accenture.flowershop.test.XMLConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +7,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.jms.*;
-import java.io.IOException;
 
 @Service
-public class JmsReciever {
+public class JmsUserAcceptReciever {
 
 
     private static final Logger log = LoggerFactory.getLogger("resources/logback.xml");
@@ -20,11 +17,7 @@ public class JmsReciever {
     @Autowired
     private ConnectionFactory connectionFactory;
     @Autowired
-    private Queue receiveUserDiscountXmlQueue;
-    @Autowired
-    private XMLConverter xmlConverter;
-    @Autowired
-    private UserService userService;
+    private Queue userQueue;
 
     Connection connection;
     Session session;
@@ -34,18 +27,18 @@ public class JmsReciever {
         connection = connectionFactory.createConnection();
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        MessageConsumer consumer = session.createConsumer(receiveUserDiscountXmlQueue);
+        MessageConsumer consumer = session.createConsumer(userQueue);
         connection.start();
         consumer.setMessageListener(
                 new MessageListener() {
                     public void onMessage(Message message) {
 
                         try {
-                            String text = ((TextMessage) message).getText();
-                            UserDTO user = (UserDTO) xmlConverter.convertFromXMLToObject(text);
-                            userService.userDiscountUpdate(user.getLogin(), user.getDiscount());
-                            log.info("Получено сообщение от jms provider :{}", text);
-                        } catch (JMSException | IOException e) {
+                            String text = message.getStringProperty("login");
+                            boolean b = message.getBooleanProperty("accepted");
+                            log.info("Получено сообщение от jms provider Login =:{}", text);
+                            log.info("Получено сообщение от jms provider Accepted =:{}", b);
+                        } catch (JMSException e) {
                             e.printStackTrace();
                         }
                     }

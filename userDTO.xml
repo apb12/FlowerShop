@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<userDTO><username>namestas</username><email>asv_79@inbox.ru</email><login>namestas</login><password>121212</password><discount>5</discount><balance>2000</balance></userDTO>
+<userDTO login="namestas"><username>namestas</username><email>asv_79@inbox.ru</email><password>121212</password><discount>5</discount><balance>2000</balance></userDTO>

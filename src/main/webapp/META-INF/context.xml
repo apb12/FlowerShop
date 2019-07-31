@@ -24,5 +24,9 @@
               type="org.apache.activemq.command.ActiveMQQueue"
               factory="org.apache.activemq.jndi.JNDIReferenceFactory"
               physicalName="IN_QUEUE"/>
+    <Resource name="jms/userQueue" auth="Container"
+              type="org.apache.activemq.command.ActiveMQQueue"
+              factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+              physicalName="USER_QUEUE"/>
 </Context>
 
